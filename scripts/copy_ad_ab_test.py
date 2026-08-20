@@ -1,23 +1,17 @@
+"""复制广告做 A/B 文案测试。
+
+用法示例：
+    python copy_ad_ab_test.py --source-ad-id <AD_ID> --account-id <ACCOUNT_ID> \
+        --bodies-json fb_output/bodies.json --titles-json fb_output/titles.json
+
+A/B 文案必须由用户通过 --bodies-json / --titles-json 提供，脚本不内置默认文案。
+"""
+
 import argparse
 import copy
 import json
 
 from common import graph_get, graph_post, normalize_account_id, write_json
-
-
-DEFAULT_BODIES = [
-    "Source custom shades & blinds directly from us. Ask for factory pricing, custom sizes, samples, and lead times.",
-    "Need reliable supply for projects or resale? Get custom window-covering options built for dealers, contractors, and wholesalers.",
-    "Cut out the middleman. Request direct pricing on custom shades and blinds for your next project or wholesale order.",
-]
-
-DEFAULT_TITLES = [
-    "Wholesale Shades, Factory Direct",
-    "Custom Blinds for Dealers",
-    "Get Factory Pricing",
-]
-
-DEFAULT_DESCRIPTION = "Request pricing, samples, and lead times for custom shades and blinds."
 
 
 def strip_label_ids(value):
@@ -33,9 +27,9 @@ def strip_label_ids(value):
     return value
 
 
-def load_list(path, fallback):
+def load_list(path):
     if not path:
-        return fallback
+        raise RuntimeError("缺少文案 JSON 文件：--bodies-json / --titles-json 为必填")
     with open(path, "r", encoding="utf-8") as handle:
         payload = json.load(handle)
     if isinstance(payload, list):
@@ -55,13 +49,13 @@ def replace_text_assets(asset_feed_spec, bodies, titles, description):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="复制广告做 A/B 文案测试（文案必须由用户提供）")
     parser.add_argument("--source-ad-id", required=True)
     parser.add_argument("--account-id", required=True)
     parser.add_argument("--name-suffix", default="AB Copy Test")
-    parser.add_argument("--bodies-json")
-    parser.add_argument("--titles-json")
-    parser.add_argument("--description", default=DEFAULT_DESCRIPTION)
+    parser.add_argument("--bodies-json", required=True, help="primary text 列表 JSON 文件（必填）")
+    parser.add_argument("--titles-json", required=True, help="headline 列表 JSON 文件（必填）")
+    parser.add_argument("--description", help="description 文本；缺省时保留原 description")
     parser.add_argument("--out", default="fb_output/created_ab_test_ad.json")
     args = parser.parse_args()
 
@@ -78,8 +72,8 @@ def main():
     if "asset_feed_spec" not in creative:
         raise RuntimeError("Source creative does not contain asset_feed_spec. Manual adaptation is required.")
 
-    bodies = load_list(args.bodies_json, DEFAULT_BODIES)
-    titles = load_list(args.titles_json, DEFAULT_TITLES)
+    bodies = load_list(args.bodies_json)
+    titles = load_list(args.titles_json)
     new_spec = replace_text_assets(creative["asset_feed_spec"], bodies, titles, args.description)
 
     creative_name = f"{source['name']} - {args.name_suffix} Creative"

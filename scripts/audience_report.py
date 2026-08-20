@@ -12,7 +12,7 @@ import json
 from datetime import date
 from pathlib import Path
 
-from audience_reach import TYPE_FIELDS
+from common import TYPE_FIELDS
 
 OUT_DIR = Path("fb_output")
 

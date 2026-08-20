@@ -1,205 +1,66 @@
 ---
-name: facebook-ads-manager
-description: Analyze and manage Meta/Facebook Ads accounts using the official facebook_business SDK and Meta Marketing API. Use when the user provides or references a Facebook/Meta access token, ad account ID, campaign/ad set/ad ID, lead form ID, or asks Codex to generate Facebook ads reports, diagnose campaign performance, create A/B test ads, optimize ad copy, activate or pause ads, retrieve lead ads data, find target audiences / interests / hidden interests, do B2B or B2C audience research, estimate audience reach by country or region, or manage multiple Meta ad accounts.
+name: b2b-facebook-ads-manager
+description: 管理 Meta/Facebook 广告账户的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作（新建默认 PAUSED、任何写操作须明确确认）；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案时使用。
 ---
 
-# Facebook Ads Manager
+# B2B Facebook Ads Manager（Meta 广告报告、受众研究、安全操作与 B2B 广告构建）
 
-Use this skill for Meta/Facebook Ads reporting and controlled account operations after the user has already obtained an access token.
+Meta/Facebook 广告账户的单一入口，覆盖四种工作模式：
 
-Prefer the official `facebook_business` Python SDK. Fall back to direct Graph API requests only when the SDK does not expose a needed edge cleanly.
+- **报告模式**：生成中文 Markdown 账户表现报告（只读）。见 [references/reporting.md](references/reporting.md)。
+- **管理模式**：诊断、优化建议，并在用户明确确认后执行写操作。见 [references/management.md](references/management.md)。
+- **受众研究模式**：查找目标受众、兴趣、隐藏兴趣，估算国家/地区覆盖。见 [references/audience.md](references/audience.md)。
+- **B2B 广告构建模式**：从产品资料到英文文案、中文审查翻译、素材、线索表单和 Ads Manager 落地。见 [references/b2b-ad-builder.md](references/b2b-ad-builder.md)。
 
-## Safety Rules
+## 引导式开场（首次使用 / 意图不明时）
 
-- Never print, quote, or store access tokens.
-- Read secrets from environment variables or runtime input:
-  - `FB_ACCESS_TOKEN`
-  - `META_APP_ID` optional
-  - `META_APP_SECRET` optional
-  - `FB_PROXY` optional, for example `socks5h://127.0.0.1:10808`
-- Create new ads as `PAUSED` by default.
-- Require explicit user approval before activating, pausing, deleting, changing budgets, or changing live targeting.
-- After any write, read the object back and report ID, name, configured status, and effective status.
-- If an operation fails due to app mode, permissions, review, token expiry, or policy review, explain the exact Meta error and stop before retrying write operations.
+用户第一次使用本技能，或请求模糊（如“帮我看看广告”“用这个技能”“你看着办”）时，先走引导，不直接开跑：
 
-## Setup
+1. 用一两句话说明本技能能做什么，然后只问一个问题让用户选择方向：
+   - 账户表现报告（只读）
+   - 受众 / 兴趣 / 覆盖研究（只读）
+   - 诊断与优化建议（改动需确认）
+   - B2B 广告构建（文案 / 素材 / 表单 / 建广告）
+2. 按选择进入对应模式；每个模式按 [references/onboarding.md](references/onboarding.md) 的提问顺序收集信息，一次只问一组必要问题，不抛长问卷。
+3. 先检查前置条件（token 是否已设置、账户是否已知）；token 只报告“已设置 / 未设置”，粘贴后仅当前进程临时使用。
+4. 每完成一步用一句话同步“已确认：…；还需要：…”，结束时区分“已完成结果”和“需用户确认后执行的动作”。
 
-Install dependencies in the workspace:
+用户请求已明确（如“出近 30 天报告”）时，直接进入对应模式，不重复走开场问题。
 
-```bash
-pip install facebook_business requests
-```
+## 安全规则（四种模式通用）
 
-Set token before running scripts:
+- 绝不打印、重复、存储或在报告、日志、代码文件、回复中包含访问口令 `FB_ACCESS_TOKEN`。优先从环境变量读取；用户粘贴的口令只作临时环境变量，用后立即移除。
+- 需要代理时用 `FB_PROXY`，常用 `http://127.0.0.1:10808` 或 `socks5h://127.0.0.1:10808`。
+- 所有新建广告默认 `PAUSED`。任何写操作（开关 campaign/ad set/ad、改预算或出价、删除/归档、修改在用广告、创建 A/B 副本、发布/启用暂停副本）都必须先取得用户对具体动作的明确确认。
+- 每次确认的写操作后，重新读取对象并报告：对象 ID、名称、`configured_status`、`effective_status`。
+- `effective_status=PENDING_REVIEW` 表示审核中；`IN_PROCESS` 表示 Meta 正在处理素材或创意。不要把二者误报为正常投放。
 
-```bash
-set FB_ACCESS_TOKEN=...
-set FB_PROXY=socks5h://127.0.0.1:10808
-```
-
-Use account IDs without `act_` in user-facing commands. Scripts normalize both forms.
-
-## Standard Report Workflow
-
-Use `scripts/report.py` when asked to analyze an account, generate a weekly report, compare recent performance, or diagnose issues.
-
-1. Read account metadata.
-2. Pull insights for:
-   - last 30 days
-   - last 7 days
-   - last full week
-3. Break down by:
-   - campaign
-   - ad set
-   - ad
-4. Include:
-   - spend
-   - clicks
-   - impressions
-   - CTR
-   - CPC
-   - conversions
-   - cost per conversion
-5. Identify:
-   - high spend with zero conversions
-   - CPA spikes
-   - weak CTR
-   - one-object spend concentration
-   - missing A/B tests
-6. Produce a short execution plan with concrete next actions.
-
-Example:
+## 依赖安装
 
 ```bash
-python scripts/report.py --account-id 3149616161865068 --out-dir fb_output
+pip install -r requirements.txt
 ```
 
-## Audience Research Workflow
+requirements.txt 位于技能目录下；从其他工作目录运行时，请使用技能文件夹的完整路径。
 
-Use the `scripts/audience_*.py` scripts when the user asks to find target audiences, interests, or "hidden interests", do B2B/B2C audience research, or estimate how many people an audience covers in specific countries/regions.
+## 报告快速运行
 
-Follow the steps in order. This workflow is read-only (targetingsearch / reachestimate); any ad creation afterward follows the existing create-as-PAUSED rules.
+报告模式优先使用内置脚本：
 
-1. Token and account. Verify `FB_ACCESS_TOKEN` is set (see `references/environment.md` for how to obtain one if missing). Validate it and list accessible accounts with:
+`scripts/generate_fb_markdown_reports.py`
 
-   ```bash
-   python -c "import json,sys; sys.path.insert(0,'scripts'); from common import graph_get; [print(a['id'], a.get('name','')) for a in graph_get('me/adaccounts', {'limit':100}).get('data',[])]"
-   ```
-
-   Ask the user which account to use if several are returned.
-
-2. Ask the user, in this order:
-   - target country / region (multi-select; map to ISO codes)
-   - product / industry (free text, e.g. "包材定制/包装袋")
-   - B2B, B2C, or both
-
-3. Build the keyword list. Use the built-in library for known industries, then let the user add custom keywords:
-
-   ```bash
-   python scripts/audience_keywords.py --industry "包装袋/包材" --mode b2b
-   python scripts/audience_keywords.py --industry "日化" --mode b2c --extra "custom term"
-   ```
-
-   Unknown industries: ask the user for 3-10 representative keywords (category terms, brands, use-case phrases).
-
-4. Search audiences in two tracks with `scripts/audience_search.py`. Do not filter by size by default (`--min-size 0 --max-size 0`); output everything and let the user decide.
-
-   - B2C / interests track:
-
-     ```bash
-     python scripts/audience_search.py --account 1495761958760356 --keywords "packaging,food industry,cosmetics" --class adinterests --out-suffix b2c
-     ```
-
-   - B2B / identity track (job titles, behaviors, industries):
-
-     ```bash
-     python scripts/audience_search.py --account 1495761958760356 --keywords "purchasing manager,founder,small business owners" --class adworkjobtitles --type work_positions --out-suffix b2b_titles
-     python scripts/audience_search.py --account 1495761958760356 --keywords "small business owners,business page admins" --class adtargetingcategories --keep-all --out-suffix b2b_people
-     ```
-
-   The script dedupes across keywords, tags each row with its source keyword, and saves CSV/JSON to `fb_output/`.
-
-5. Present the sorted list to the user and ask them to pick audience IDs (write picks to a CSV with columns `id,name,type`). Auto-recommend only if the user asks for it; default is "show the list and let the user decide".
-
-6. Estimate real reach in the selected countries with `scripts/audience_reach.py`:
-
-   ```bash
-   python scripts/audience_reach.py --account 1495761958760356 --file fb_output/audience_picks.csv --countries ID,PH,VN,TH,MY,SG,MM,KH,LA,BN,TL --out sea_reach
-   ```
-
-7. Deliver the report with `scripts/audience_report.py` (Markdown summary + ready-to-paste `targeting_spec` JSON examples):
-
-   ```bash
-   python scripts/audience_report.py --reach-file fb_output/sea_reach.csv --countries "ID,PH,VN,TH,MY,SG,MM,KH,LA,BN,TL" --out audience_report
-   ```
-
-Experience notes:
-
-- "Southeast Asia" exists in Meta as an *interest*, not a geo location. Target countries by ISO code list.
-- Job-title targeting (`work_positions`) is very thin in emerging markets (SEA often returns ~1,000 or below). For B2B in those markets, prefer behaviors (Small business owners, Business page admins) and broad interests.
-- `audience_size` from targetingsearch is a global estimate without geo; use `reachestimate` (step 6) for country-level reach.
-- `targetingsearch` and `reachestimate` require `ads_management` on the token.
-
-## A/B Test Ad Workflow
-
-Use `scripts/copy_ad_ab_test.py` when the user asks to duplicate an existing ad and test new copy.
-
-1. Read the source ad and creative.
-2. Preserve campaign, ad set, creative media, CTA, lead form, placements, and links.
-3. Replace text assets only:
-   - body / primary text
-   - title / headline
-   - description
-4. Create a new creative.
-5. Create a new ad as `PAUSED`.
-6. Read back and report:
-   - source ad ID
-   - new creative ID
-   - new ad ID
-   - configured status
-   - effective status
-7. Activate only after the user explicitly asks.
-
-Example:
-
-```bash
-python scripts/copy_ad_ab_test.py --source-ad-id 120232398906870392 --account-id 3149616161865068 --out fb_output/created_ab_test_ad.json
+```powershell
+$env:FB_ACCESS_TOKEN='<token from user or environment>'
+$env:FB_PROXY='http://127.0.0.1:10808'
+python scripts/generate_fb_markdown_reports.py --account-id <ACCOUNT_ID> --out-dir fb_output
+Remove-Item Env:\FB_ACCESS_TOKEN -ErrorAction SilentlyContinue
+Remove-Item Env:\FB_PROXY -ErrorAction SilentlyContinue
 ```
 
-## Status Changes
+脚本位于技能目录 `scripts/` 下；若从其他工作目录运行，请把 `scripts/` 换成技能文件夹的完整路径。
 
-Use `scripts/set_ad_status.py` for explicit requests such as "turn this ad on" or "pause this ad".
+默认 Python 缺依赖时，使用 `codex_app.load_workspace_dependencies` 提供的 Codex 内置 Python。
 
-Allowed statuses:
+## 最终回复
 
-- `ACTIVE`
-- `PAUSED`
-
-Example:
-
-```bash
-python scripts/set_ad_status.py --ad-id 120250996069480392 --status ACTIVE
-```
-
-## Copywriting Defaults
-
-For B2B manufacturing or wholesale accounts, optimize copy toward:
-
-- factory-direct pricing
-- dealers, wholesalers, contractors, distributors
-- custom sizes
-- OEM/ODM or private label if true
-- fabric/options count if known
-- quote/sample/lead-time intent
-
-Avoid unsupported claims such as guaranteed lowest price, impossible delivery promises, or claims not present in the user's business context.
-
-## Output Style
-
-Keep reports concise and operational:
-
-- Summary table first.
-- Findings by severity.
-- Action steps last.
-- Mention exact dates.
-- Mention when conversion basis is `lead`, `purchase`, or another event.
+最终回复简洁、默认中文。报告给 Markdown 文件链接；写操作给出已确认动作和复核状态；建议区分“分析结论”与“需用户确认后执行”的部分。

@@ -1,6 +1,7 @@
 import argparse
 import csv
 import json
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from facebook_business.adobjects.adaccount import AdAccount
@@ -95,7 +96,18 @@ def normalize(row, window, level):
     }
 
 
-def collect(account, window_name, since, until, level):
+def collect_active_campaign_ids(account):
+    """只统计当前投放中的 campaign（effective_status=ACTIVE），与报告口径一致。"""
+    campaigns = account.get_campaigns(fields=["id", "effective_status"], params={"limit": 500})
+    active = []
+    for campaign in campaigns:
+        data = campaign.export_all_data()
+        if str(data.get("effective_status") or "").upper() == "ACTIVE":
+            active.append(data["id"])
+    return set(active)
+
+
+def collect(account, window_name, since, until, level, active_campaign_ids=None):
     rows = account.get_insights(
         fields=FIELDS,
         params={
@@ -106,6 +118,8 @@ def collect(account, window_name, since, until, level):
         },
     )
     output = [normalize(row.export_all_data(), window_name, level) for row in rows]
+    if active_campaign_ids is not None:
+        output = [r for r in output if r["campaign_id"] in active_campaign_ids]
     output.sort(key=lambda r: (r["spend"], r["conversions"]), reverse=True)
     return output
 
@@ -159,14 +173,28 @@ def main():
 
     init_api()
     account = AdAccount(normalize_account_id(args.account_id))
-    account_info = account.api_get(fields=["id", "name", "account_id", "currency", "timezone_name", "account_status"]).export_all_data()
+    account_info = account.api_get(
+        fields=["id", "name", "account_id", "currency", "timezone_name", "timezone_offset", "account_status"]
+    ).export_all_data()
 
-    out = {"account": account_info, "windows": {}}
+    # 使用广告账户时区的“昨天”作为窗口结束日，不包含当前未结束的当天。
+    offset_seconds = int(account_info.get("timezone_offset") or 28800)
+    local_today = (datetime.now(timezone.utc) + timedelta(seconds=offset_seconds)).date()
+    end = local_today - timedelta(days=1)
+
+    active_campaign_ids = collect_active_campaign_ids(account)
+
+    out = {
+        "account": account_info,
+        "active_only": True,
+        "active_campaign_count": len(active_campaign_ids),
+        "windows": {},
+    }
     flat_rows = []
-    for window_name, (since, until) in date_windows().items():
+    for window_name, (since, until) in date_windows(end=end).items():
         levels = {}
         for level in ["campaign", "adset", "ad"]:
-            rows = collect(account, window_name, since, until, level)
+            rows = collect(account, window_name, since, until, level, active_campaign_ids)
             levels[level] = rows
             flat_rows.extend(rows)
         out["windows"][window_name] = {

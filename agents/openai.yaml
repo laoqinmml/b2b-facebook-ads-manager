@@ -1,4 +1,4 @@
 interface:
-  display_name: "Facebook Ads Manager"
-  short_description: "Analyze and manage Meta/Facebook ads and research target audiences with Access Tokens."
-  default_prompt: "Use this skill to analyze a Meta ad account, generate reports, diagnose performance, research target audiences (B2B/B2C), estimate country reach, and create safe A/B test ads."
+  display_name: "B2B Facebook Ads Manager"
+  short_description: "Meta广告报告、受众研究、安全操作与B2B广告构建"
+  default_prompt: "Use $b2b-facebook-ads-manager to analyze a Meta/Facebook ad account, generate a Chinese Markdown report, research audiences, or build B2B lead ads."

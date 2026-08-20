@@ -15,21 +15,10 @@ import json
 import time
 from pathlib import Path
 
-from common import graph_get, normalize_account_id, write_json
+from common import TYPE_FIELDS, graph_get, normalize_account_id, write_json
 
 OUT_DIR = Path("fb_output")
 SEA_COUNTRIES = ["ID", "PH", "VN", "TH", "MY", "SG", "MM", "KH", "LA", "BN", "TL"]
-
-TYPE_FIELDS = {
-    "interests": "interests",
-    "behaviors": "behaviors",
-    "work_positions": "work_positions",
-    "industries": "industries",
-    "life_events": "life_events",
-    "demographics": "demographics",
-    "education_majors": "education_majors",
-    "work_employers": "work_employers",
-}
 
 
 def estimate_reach(account, audience_id, audience_type, countries):
