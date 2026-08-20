@@ -16,7 +16,7 @@
 仓库发布后，在 Codex 中直接安装：
 
 ```text
-$skill-installer install https://github.com/<你的用户名>/facebook-ads-manager
+$skill-installer install https://github.com/laoqinmml/b2b-facebook-ads-manager
 ```
 
 或者手动安装：克隆仓库，把 `facebook-ads-manager` 文件夹复制到 `~/.codex/skills/`（个人全局）或项目的 `.agents/skills/`（仓库级），然后重启 Codex。
