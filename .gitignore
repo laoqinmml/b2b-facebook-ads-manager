@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+fb_output/
+tmp/
+.env

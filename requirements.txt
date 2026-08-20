@@ -1,0 +1,2 @@
+facebook_business==25.0.2
+requests
