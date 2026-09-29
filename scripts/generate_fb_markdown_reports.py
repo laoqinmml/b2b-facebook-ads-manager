@@ -834,13 +834,18 @@ def write_csv(path, rows):
         writer.writerows([{key: row.get(key, "") for key in fields} for row in rows])
 
 
+def md_cell(value):
+    """单元格文本：合并换行并转义竖线，避免对象名称里的 | 撑破表格列。"""
+    return str(value).replace("\n", " ").replace("|", "\\|")
+
+
 def md_table(headers, rows):
     lines = [
         "| " + " | ".join(headers) + " |",
         "| " + " | ".join("---" for _ in headers) + " |",
     ]
     for row in rows:
-        lines.append("| " + " | ".join(str(item).replace("\n", " ") for item in row) + " |")
+        lines.append("| " + " | ".join(md_cell(item) for item in row) + " |")
     return "\n".join(lines)
 
 

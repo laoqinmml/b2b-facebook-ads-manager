@@ -1,10 +1,10 @@
 # B2B Facebook Ads Manager（Codex Skill）
 
-Meta / Facebook 广告账户全流程管理的 Codex 技能，面向外贸 B2B（制造商、机械设备供应商、批发商、工厂），基于官方 `facebook_business` SDK 与 Meta Marketing API。默认中文沟通；首次使用或意图不明时走引导式对话，一次只问一组必要问题。
+Meta / Facebook 广告账户与主页内容全流程管理的 Codex 技能，面向外贸 B2B（制造商、机械设备供应商、批发商、工厂），基于官方 `facebook_business` SDK 与 Meta Marketing API。默认中文沟通；首次使用或意图不明时走引导式对话，一次只问一组必要问题。
 
 ## 能力总览
 
-四种工作模式，从账户诊断到广告落地全覆盖：
+五种工作模式，从账户诊断到广告落地、主页物料全覆盖：
 
 **1. 账户表现报告（只读）**
 
@@ -38,6 +38,12 @@ Meta / Facebook 广告账户全流程管理的 Codex 技能，面向外贸 B2B�
 - Ads Manager 落地：复制兼容设置、新建 PAUSED、写后逐项复核
 - 严格区分用户事实、产品页声明与推断；不编造价格、MOQ、认证、交期、产能、客户数量或评价
 
+**5. 主页物料与自然流内容**
+
+- 主页封面 Banner：真实工厂照片 + 精确排版的确定性合成，同时导出 1640×624（上传尺寸）和 820×312（桌面显示尺寸），并规避左下角头像遮挡区
+- Logo 资产化：实拍招牌/背光照片 → 纯白底黑字底稿 → 白底、透明、反白、1080 方形头像全套 PNG；只清理不重画，不改字形和拼写
+- 自然流帖子文案：英文正文 + 中文审查对照，以"工厂不是贸易商"的身份钩子开场，段落间空行、清单每条一个 emoji；不编造认证、MOQ、产能，不写客户彩盒上的第三方品牌
+
 ## 目录结构
 
 ```text
@@ -50,6 +56,9 @@ b2b-facebook-ads-manager/
 |   |-- management.md        写操作确认与复核规则
 |   |-- audience.md          受众研究流程与经验要点
 |   |-- b2b-ad-builder.md    广告文案、素材、表单与落地规范
+|   |-- page-banner.md       主页封面 Banner：尺寸、安全区、版式与提示词模板
+|   |-- logo-assets.md       Logo 资产化：清理、抠图、变体清单与质检
+|   |-- page-post-copy.md    自然流帖子文案：工厂身份角度与发帖规范
 |   `-- environment.md       环境变量与权限说明
 |-- scripts/                 Python 辅助脚本
 |   |-- generate_fb_markdown_reports.py  主报告脚本（中文 Markdown/JSON/CSV）
@@ -60,6 +69,9 @@ b2b-facebook-ads-manager/
 |   |-- audience_report.py   受众调研 Markdown + targeting_spec
 |   |-- copy_ad_ab_test.py   复制广告做 A/B 文案测试（默认 PAUSED）
 |   |-- set_ad_status.py     启用/暂停状态变更
+|   |-- make_page_banner.py  主页封面 Banner 合成（1640x624 + 820x312）
+|   |-- logo_from_photo.py   从招牌照片中提取 logo（去纹理与光晕）
+|   |-- logo_variants.py     生成 logo 全套变体（白底/透明/反白/方形）
 |   `-- common.py            公共请求层：token 安全、重试退避、分页游标
 |-- requirements.txt         依赖
 |-- README.md
@@ -125,6 +137,25 @@ python scripts/copy_ad_ab_test.py --source-ad-id <AD_ID> --account-id <ACCOUNT_I
 
 ```bash
 python scripts/set_ad_status.py --ad-id <AD_ID> --status PAUSED
+```
+
+主页封面 Banner（本地生成图片，不涉及账户写操作）：
+
+```bash
+python scripts/make_page_banner.py --photo row.png --style band \
+  --kicker "KITCHEN SMALL APPLIANCE FACTORY  ·  OEM / ODM" \
+  --title-en "COMPANY NAME CO., LTD." --title-cn "公司中文名" \
+  --sub1 "Blenders · Mixers · Coffee Makers" \
+  --prefix fb-cover-band --out-dir output/banner
+```
+
+Logo 资产化（先抠图，再出全套变体）：
+
+```bash
+python scripts/logo_from_photo.py --src sign.jpg --prefix company-logo --out-dir output/logo \
+  --keep-box 48,62,588,492
+python scripts/logo_variants.py --src output/logo/company-logo-whitebg.png \
+  --prefix company-logo --out-dir output/logo
 ```
 
 ## 安全约定

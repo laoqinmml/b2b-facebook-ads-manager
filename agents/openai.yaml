@@ -1,4 +1,4 @@
 interface:
   display_name: "B2B Facebook Ads Manager"
-  short_description: "Meta广告报告、受众研究、安全操作与B2B广告构建"
-  default_prompt: "Use $b2b-facebook-ads-manager to analyze a Meta/Facebook ad account, generate a Chinese Markdown report, research audiences, or build B2B lead ads."
+  short_description: "Meta广告报告、受众研究、安全操作、B2B广告构建与主页物料"
+  default_prompt: "Use $b2b-facebook-ads-manager to analyze a Meta/Facebook ad account, generate a Chinese Markdown report, research audiences, build B2B lead ads, or produce Facebook Page visuals (cover banner, logo assets) and post copy."
