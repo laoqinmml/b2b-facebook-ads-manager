@@ -127,6 +127,39 @@ Descriptions x 5
 
 机械设备优先询问：需要处理的产品或物料；包装、容器或胶囊类型；目标产能；必需功能或可选配置；预计采购时间。首次表单不要堆积预算、厂房尺寸和大量开放题。没有正式隐私政策 URL 时，明确指出它是发布表单前的必需项，不得用产品页冒充隐私政策。
 
+### 联系信息「说明」字段（必填）
+
+表单的联系信息区块里有一栏必须填写的说明，用来告诉用户你将如何使用或分享他们的数据；留空无法发布。这一栏不是可选项，也不是随便抄一段法律文字就能过。
+
+写法要求：
+
+- 两到三句话，写清两件事：**用途**（拿这些信息做什么）和**是否分享**（会不会给第三方）。不写法律套话，不堆联系方式。
+- 必须与实际做法一致，也要与隐私政策一致。只做报价就不要写营销；不共享给第三方就不要写共享。反过来，确实会共享给当地代理、分销商或合作方时**必须写明**，Meta 审核和用户投诉都盯这一条。
+- 按表单语言写，一份表单一种语言。中文对照只用于内部审核，不要提交到英文表单。
+- 不写"我们会妥善保管您的信息"这类空话，它没有说明任何用途。
+
+三种可直接改用的模板（按实际做法选，不要为了好过审而选错）：
+
+只在询盘范围内使用，完成率最高：
+
+```text
+We use your information to prepare and send your quotation and to contact you about this enquiry. We will not use it for anything else.
+```
+
+报价 + 后续产品更新（工厂主页通常用这一版）：
+
+```text
+We use your contact details to prepare your quotation and to follow up on your enquiry by email, phone or WhatsApp. We may also send you our product updates, such as new finishes, price lists and exhibition dates. We do not sell or share your data with third parties.
+```
+
+报价 + 与当地合作方共享（只有确实共享时才用）：
+
+```text
+We use your information to send you a quotation and to contact you about your enquiry. We may also share your details with our distributors in your market, who may contact you about their products and services.
+```
+
+交付时把选定版本和它的中文对照一起给用户，方便内部核对口径。
+
 ## Meta Ads Manager 落地
 
 当用户提供广告账户、Ads Manager 链接、对象 ID 或访问口令并要求执行时，先遵守本技能 `SKILL.md` 的安全规则和 [management.md](management.md) 的写操作流程，再按以下顺序操作：
