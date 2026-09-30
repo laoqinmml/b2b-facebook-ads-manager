@@ -43,9 +43,10 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
 公司名、品牌拼写、中文字形这类不能错的信息，一律用确定性方式产出，不用 AI 生成：
 
 - **封面 Banner**：`scripts/make_page_banner.py`，真实照片 + 精确排版，同时导出 1640×624 与桌面显示尺寸 820×312；文字避开左下角（主页头像会压住）。详见 [references/page-banner.md](references/page-banner.md)。
-- **Logo 资产**：只有实拍招牌照片时，先 `$imagegen` 清理成纯白底纯黑字，再 `scripts/logo_from_photo.py` 抠 alpha、`scripts/logo_variants.py` 出白底/透明/反白/1080 方形全套；只清理不重画。详见 [references/logo-assets.md](references/logo-assets.md)。
+- **Logo 资产**：只有实拍招牌照片时，先 `$jojocode-imagegen` 清理成纯白底纯黑字，再 `scripts/logo_from_photo.py` 抠 alpha、`scripts/logo_variants.py` 出白底/透明/反白/1080 方形全套；只清理不重画。详见 [references/logo-assets.md](references/logo-assets.md)。
 - **帖子文案**：英文正文 + 中文对照，一段一个意思、段间空行；B2B 主页用"工厂身份"做钩子（`Factory, not a trading company.`），不编造认证、MOQ、产能，不写客户彩盒上的第三方品牌。详见 [references/page-post-copy.md](references/page-post-copy.md)。
 - **主页简介与主页信息**：写 FB 主页简介、About、把空主页补完整时，改用 `$fb-page-profile-builder` 技能（引导式逐字段完善，含 255 字符简介与字段检查脚本）。
+- **生图通道**：所有 AI 生图统一走 `$jojocode-imagegen`（用户固定生图接口），不要默认改用通用 `$imagegen`；版位尺寸、参考图换比例和密钥规则见 [references/image-channel.md](references/image-channel.md)。
 
 ## 依赖安装
 

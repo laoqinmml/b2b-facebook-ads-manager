@@ -95,7 +95,7 @@ Descriptions x 5
 
 ## 图片和版位素材
 
-用户要求海报、图片广告或版位素材时，使用 `$imagegen`。生成前优先从对话寻找以下信息，缺失时只询问必要项：
+用户要求海报、图片广告或版位素材时，使用 `$jojocode-imagegen`。通道、尺寸表、参考图换比例和密钥规则见 [image-channel.md](image-channel.md)。生成前优先从对话寻找以下信息，缺失时只询问必要项：
 
 1. Logo 原始 PNG、SVG 或高清图片。
 2. 产品主体图、成品图、应用图或细节图的角色。
@@ -110,11 +110,13 @@ Descriptions x 5
 
 通常制作三套独立排版，不简单拉伸或强行裁切，并保持 Logo、文案、色彩和设备结构一致：
 
-- `9:16`：Stories、Reels、Reels Overlay。
-- `1:1`：Feed、Profile Feed、Search、Notification。
-- `1.91:1`：In-stream Video 和适合横向素材的版位。
+- `9:16`，`1152x2048`：Stories、Reels、Reels Overlay。
+- `1:1`，`1536x1536`：Feed、Profile Feed、Search、Notification。
+- `1.91:1`，`1920x1008`：In-stream Video 和适合横向素材的版位。
 
 方形和横版需重新安排信息层级，确保机器与文字不被裁切。
+
+补另外两个比例时，把已确认的那张当参考图走 `edit` 重排，保留同一套文案和设计系统。重排后主图会被重新生成，角度和细节与原版不完全一致；用户要求三个比例主图完全一致时，改用确定性做法（从原图抠出主图复用，文字层用脚本或精确排版重搭），并在交付说明里写清楚两种做法的主图差异。
 
 ## 即时表单
 

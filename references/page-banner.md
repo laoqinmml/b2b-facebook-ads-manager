@@ -23,7 +23,7 @@ Facebook 主页封面、横版素材底座、公司介绍图的制作规范。�
 | 做法 | 适用 | 代价 |
 |---|---|---|
 | 确定性合成（推荐做主封面） | 公司介绍型封面、需要中英文字精确无误、要放真实工厂照片 | 需要脚本和照片素材，版式自由度靠参数调 |
-| AI 生成（`$imagegen`） | 概念场景图、排产品列阵的氛围图、没有合适实拍时 | 文字容易拼错，产品结构可能被改动，必须逐字校验 |
+| AI 生成（`$jojocode-imagegen`） | 概念场景图、排产品列阵的氛围图、没有合适实拍时 | 文字容易拼错，产品结构可能被改动，必须逐字校验 |
 
 公司名、品类、市场这类必须准确的信息，优先走确定性合成；AI 生成的结果只做背景或氛围，文字另行叠加。
 
@@ -57,7 +57,7 @@ python scripts/make_page_banner.py \
 
 ## AI 生成
 
-调用 `$imagegen`，用 `ads-marketing` 用例、`Facebook Page cover banner, ultra-wide horizontal` 资产类型。模板：
+调用 `$jojocode-imagegen`，用 `ads-marketing` 用例、`Facebook Page cover banner, ultra-wide horizontal` 资产类型。尺寸、密钥和参考图换比例规则见 [image-channel.md](image-channel.md)。模板：
 
 ```text
 Use case: ads-marketing
