@@ -64,5 +64,5 @@ $cli = "$env:USERPROFILE\.codex\skills\.system\imagegen\scripts\image_gen.py"
 
 ## 边界
 
-- Logo、公司名这类必须精确的内容仍走确定性脚本（`scripts/logo_from_photo.py`、`scripts/logo_variants.py`、`scripts/make_page_banner.py`）；AI 只用来出干净底稿、背景和氛围图。
+- Logo、公司名、纯文字海报这类必须精确的内容仍走确定性脚本（`scripts/logo_from_photo.py`、`scripts/logo_variants.py`、`scripts/make_page_banner.py`、`scripts/make_text_poster.py`）；AI 只用来出干净底稿、背景和氛围图。
 - 不要把 Meta 自带 CTA 按钮画进海报，除非用户明确要求。

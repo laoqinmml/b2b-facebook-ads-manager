@@ -11,7 +11,7 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
 - **管理模式**：诊断、优化建议，并在用户明确确认后执行写操作。见 [references/management.md](references/management.md)。
 - **受众研究模式**：查找目标受众、兴趣、隐藏兴趣，估算国家/地区覆盖。见 [references/audience.md](references/audience.md)。
 - **B2B 广告构建模式**：从产品资料到英文文案、中文审查翻译、素材、线索表单和 Ads Manager 落地。见 [references/b2b-ad-builder.md](references/b2b-ad-builder.md)。
-- **主页物料模式**：主页封面 Banner、实拍照片转 Logo 资产、自然流帖子文案。见 [references/page-banner.md](references/page-banner.md)、[references/logo-assets.md](references/logo-assets.md)、[references/page-post-copy.md](references/page-post-copy.md)。
+- **主页物料模式**：主页封面 Banner、纯色文字海报、实拍照片转 Logo 资产、自然流帖子文案。见 [references/page-banner.md](references/page-banner.md)、[references/text-poster.md](references/text-poster.md)、[references/logo-assets.md](references/logo-assets.md)、[references/page-post-copy.md](references/page-post-copy.md)。
 
 ## 引导式开场（首次使用 / 意图不明时）
 
@@ -43,6 +43,7 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
 公司名、品牌拼写、中文字形这类不能错的信息，一律用确定性方式产出，不用 AI 生成：
 
 - **封面 Banner**：`scripts/make_page_banner.py`，真实照片 + 精确排版，同时导出 1640×624 与桌面显示尺寸 820×312；文字避开左下角（主页头像会压住）。详见 [references/page-banner.md](references/page-banner.md)。
+- **纯色文字海报**：`scripts/make_text_poster.py`，纯色底 + 纯白文字、零照片，一次出 9:16 / 1:1 / 1.91:1；纯文字图不交给 AI 生图。详见 [references/text-poster.md](references/text-poster.md)。
 - **Logo 资产**：只有实拍招牌照片时，先 `$jojocode-imagegen` 清理成纯白底纯黑字，再 `scripts/logo_from_photo.py` 抠 alpha、`scripts/logo_variants.py` 出白底/透明/反白/1080 方形全套；只清理不重画。详见 [references/logo-assets.md](references/logo-assets.md)。
 - **帖子文案**：英文正文 + 中文对照，一段一个意思、段间空行；B2B 主页用"工厂身份"做钩子（`Factory, not a trading company.`），不编造认证、MOQ、产能，不写客户彩盒上的第三方品牌。详见 [references/page-post-copy.md](references/page-post-copy.md)。
 - **主页简介与主页信息**：写 FB 主页简介、About、把空主页补完整时，改用 `$fb-page-profile-builder` 技能（引导式逐字段完善，含 255 字符简介与字段检查脚本）。
