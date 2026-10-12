@@ -161,6 +161,7 @@ python scripts/logo_variants.py --src output/logo/company-logo-whitebg.png \
 
 ## 安全约定
 
+- 接入 token 前先检查当前 agent 的模型来源：国内模型（通义 / DeepSeek / 豆包 / Kimi / 智谱 / 文心 / 混元 / MiniMax 等）要先提示 FB 个人账号功能受限与封号风险，建议改用 OpenAI 或 Claude 完成后台接入，等用户明确回复再继续。
 - 新创建的广告默认 `PAUSED`；启用、暂停、删除、改预算、改投放等操作必须先获得用户明确批准。
 - 绝不打印、引用或保存 access token；token 只通过环境变量或运行时输入读取，用后即删。
 - 写操作完成后必须回读对象，报告 ID、名称、`configured_status` 与 `effective_status`；`PENDING_REVIEW` / `IN_PROCESS` 不是正常投放状态。
