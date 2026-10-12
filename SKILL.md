@@ -1,17 +1,18 @@
 ---
 name: b2b-facebook-ads-manager
-description: 管理 Meta/Facebook 广告账户与主页内容的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作（新建默认 PAUSED、任何写操作须明确确认）；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写带工厂身份的自然流帖子文案。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页封面图、清理 logo、写 FB 帖子时使用。
+description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作（新建默认 PAUSED、任何写操作须明确确认）；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写带工厂身份的自然流帖子文案；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频（FB/IG/TikTok 广告、Reels）。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页封面图、清理 logo、写 FB 帖子，或提供工厂/产线/产品素材要获客视频、工厂视频、上下分屏、凸显 B 端身份、前三秒出现中国供应商时使用。
 ---
 
-# B2B Facebook Ads Manager（Meta 广告报告、受众研究、安全操作与 B2B 广告构建）
+# B2B Facebook Ads Manager（Meta 广告报告、受众研究、安全操作、B2B 广告构建、主页物料与获客视频）
 
-Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模式：
+Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，覆盖六种工作模式：
 
 - **报告模式**：生成中文 Markdown 账户表现报告（只读）。见 [references/reporting.md](references/reporting.md)。
 - **管理模式**：诊断、优化建议，并在用户明确确认后执行写操作。见 [references/management.md](references/management.md)。
 - **受众研究模式**：查找目标受众、兴趣、隐藏兴趣，估算国家/地区覆盖。见 [references/audience.md](references/audience.md)。
 - **B2B 广告构建模式**：从产品资料到英文文案、中文审查翻译、素材、线索表单和 Ads Manager 落地。见 [references/b2b-ad-builder.md](references/b2b-ad-builder.md)。
 - **主页物料模式**：主页封面 Banner、纯色文字海报、实拍照片转 Logo 资产、自然流帖子文案。见 [references/page-banner.md](references/page-banner.md)、[references/text-poster.md](references/text-poster.md)、[references/logo-assets.md](references/logo-assets.md)、[references/page-post-copy.md](references/page-post-copy.md)。
+- **工厂获客视频模式**：素材文件夹 → 上下分屏 9:16 获客短片（中缝常驻 China XXX Supplier 大标题）。见 [references/factory-video.md](references/factory-video.md)、[references/factory-video-layout.md](references/factory-video-layout.md)。
 
 ## 引导式开场（首次使用 / 意图不明时）
 
@@ -23,6 +24,7 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
    - 诊断与优化建议（改动需确认）
    - B2B 广告构建（文案 / 素材 / 表单 / 建广告）
    - 主页物料（封面 Banner / Logo 资产 / 帖子文案）
+   - 工厂获客视频（素材文件夹 → 上下分屏短片）
 2. 按选择进入对应模式；每个模式按 [references/onboarding.md](references/onboarding.md) 的提问顺序收集信息，一次只问一组必要问题，不抛长问卷。
 3. 先检查前置条件（token 是否已设置、账户是否已知），并在用户要设置 token 前先做模型来源检查：当前用国内模型时，按「安全规则」提示 FB 个人账号受限与封号风险并建议换国外模型，等用户明确回复再继续。
 4. token 只报告“已设置 / 未设置”，粘贴后仅当前进程临时使用。
@@ -30,7 +32,7 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
 
 用户请求已明确（如“出近 30 天报告”）时，直接进入对应模式，不重复走开场问题。
 
-## 安全规则（五种模式通用）
+## 安全规则（六种模式通用）
 
 - 绝不打印、重复、存储或在报告、日志、代码文件、回复中包含访问口令 `FB_ACCESS_TOKEN`。优先从环境变量读取；用户粘贴的口令只作临时环境变量，用后立即移除。
 - **接入 token 前先做模型来源检查（强制）**：用户要提供 / 设置 `FB_ACCESS_TOKEN`、登录或对接 FB 后台、跑任何请求 Meta 接口的动作之前，先判断当前会话所用模型是不是国内模型，然后按下面的分支处理；不确定就先问，不要默认跳过。
@@ -42,7 +44,7 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
 - 所有新建广告默认 `PAUSED`。任何写操作（开关 campaign/ad set/ad、改预算或出价、删除/归档、修改在用广告、创建 A/B 副本、发布/启用暂停副本）都必须先取得用户对具体动作的明确确认。
 - 每次确认的写操作后，重新读取对象并报告：对象 ID、名称、`configured_status`、`effective_status`。
 - `effective_status=PENDING_REVIEW` 表示审核中；`IN_PROCESS` 表示 Meta 正在处理素材或创意。不要把二者误报为正常投放。
-- 主页物料模式只写本地文件（图片、文案），不触碰广告账户；涉及上传主页素材或发布帖子时，按上一篇的写操作规则先取得明确确认。
+- 主页物料模式与工厂获客视频模式只写本地文件（图片、文案、视频），不触碰广告账户；涉及上传主页素材、发布帖子或把成片用于投放时，按上一篇的写操作规则先取得明确确认。
 
 ## 主页物料快速规则
 
@@ -55,6 +57,19 @@ Meta/Facebook 广告账户与主页内容的单一入口，覆盖五种工作模
 - **主页简介与主页信息**：写 FB 主页简介、About、把空主页补完整时，改用 `$fb-page-profile-builder` 技能（引导式逐字段完善，含 255 字符简介与字段检查脚本）。
 - **生图通道**：所有 AI 生图统一走 `$jojocode-imagegen`（用户固定生图接口），不要默认改用通用 `$imagegen`；版位尺寸、参考图换比例和密钥规则见 [references/image-channel.md](references/image-channel.md)。
 
+## 工厂获客视频快速规则
+
+用户给一个工厂 / 产线 / 产品素材文件夹，要"能获客的广告片"（上下分屏、凸显 B 端身份、前三秒出现中国供应商）时走这个模式，完整流程见 [references/factory-video.md](references/factory-video.md)：
+
+- **先盘点再渲染**：素材超过 20 个文件时，先跑 `scripts/inspect_materials.py` 出素材清单 + 抽帧九宫格 + 方向建议，让用户确认方向后再开工，不要闷头剪整条片子。
+- **脚本顺序**：`scripts/make_overlays.py project.json`（文字层）→ `scripts/make_video.py project.json`（分段渲染并拼接）→ `... --check`（验收）。单段改动用 `make_video.py project.json <段名>` 只重渲那一段。
+- **大标题从第一秒起常驻画面正中**（`brand.title_lines`），贯穿全片；中缝同时承载每段卖点字幕，不要把字幕塞回顶部条。
+- **静帧素材一律不动**：照片不做推拉和缓慢缩放，只有视频素材播放。对产品静图做 Ken Burns 会发虚显假。
+- **上屏讲"我们是工厂"，下屏讲"东西卖得掉"**；每段约 3 秒，全片 20–25 秒。
+- **文字层和主页物料同一套规矩**：品牌名、公司名、卖点数字一律用 Pillow 确定性排版，不用图像模型生成文字。
+- **必须人眼看过抽帧总览图再交付**；交付四件：成片 mp4、封面帧、素材盘点 md、交付说明 md。
+- 该模式只写本地文件和调用本地 ffmpeg，不触碰广告账户；要把成片用于投放或上传时，按写操作规则先取得明确确认。
+
 ## 依赖安装
 
 ```bash
@@ -62,6 +77,8 @@ pip install -r requirements.txt
 ```
 
 requirements.txt 位于技能目录下；从其他工作目录运行时，请使用技能文件夹的完整路径。
+
+工厂获客视频模式另外需要**外部 `ffmpeg` / `ffprobe` 可执行文件**（PATH 上能找到，或用参数指定完整路径），Python 侧只需 Pillow。缺 ffmpeg 时先让用户装好再开跑，不要试图用纯 Python 替代。
 
 ## 报告快速运行
 
@@ -83,4 +100,4 @@ Remove-Item Env:\FB_PROXY -ErrorAction SilentlyContinue
 
 ## 最终回复
 
-最终回复简洁、默认中文。报告给 Markdown 文件链接；写操作给出已确认动作和复核状态；建议区分“分析结论”与“需用户确认后执行”的部分。
+最终回复简洁、默认中文。报告给 Markdown 文件链接；广告/主页物料给成品文件路径；工厂获客视频给成片 mp4 与封面帧路径，并说明时长、分辨率、有无音轨、还缺什么素材。写操作给出已确认动作和复核状态；建议区分“分析结论”与“需用户确认后执行”的部分。

@@ -4,7 +4,7 @@ Meta / Facebook 广告账户与主页内容全流程管理的 Codex 技能，面
 
 ## 能力总览
 
-五种工作模式，从账户诊断到广告落地、主页物料全覆盖：
+六种工作模式，从账户诊断到广告落地、主页物料与获客视频全覆盖：
 
 **1. 账户表现报告（只读）**
 
@@ -45,6 +45,15 @@ Meta / Facebook 广告账户与主页内容全流程管理的 Codex 技能，面
 - 自然流帖子文案：英文正文 + 中文审查对照，以"工厂不是贸易商"的身份钩子开场，段落间空行、清单每条一个 emoji；不编造认证、MOQ、产能，不写客户彩盒上的第三方品牌
 - 主页简介与主页信息（简介、About、联系方式、CTA、服务）：改用 `$fb-page-profile-builder` 技能，引导式逐字段完善
 
+**6. 工厂获客视频**
+
+- 素材文件夹 → 上下分屏 9:16 获客短片（FB / IG / TikTok 广告、Reels）
+- 开局先盘点素材：按文件夹统计图片/视频、逐条读视频时长与分辨率、给每条视频出抽帧九宫格，先给方向建议再开跑
+- 中缝常驻大标题（`CHINA XXX SUPPLIER`）+ 每段切换的卖点字幕，上屏讲工厂、下屏讲成品
+- 静帧素材一律不做推拉缩放；品牌名、公司名、数字一律用 Pillow 确定性排版，不用图像模型生成文字
+- 逐段渲染再拼接，单段可单独重渲；`--check` 自动验收分辨率/帧率/音轨/首帧大标题，并导出抽帧总览图与封面帧
+- 交付四件套：成片 mp4、封面帧、素材盘点 md、交付说明 md（本模式不碰广告账户，只需本地 ffmpeg）
+
 ## 目录结构
 
 ```text
@@ -60,6 +69,8 @@ b2b-facebook-ads-manager/
 |   |-- page-banner.md       主页封面 Banner：尺寸、安全区、版式与提示词模板
 |   |-- logo-assets.md       Logo 资产化：清理、抠图、变体清单与质检
 |   |-- page-post-copy.md    自然流帖子文案：工厂身份角度与发帖规范
+|   |-- factory-video.md     工厂获客视频：工作流、硬约束与交付清单
+|   |-- factory-video-layout.md  工厂获客视频：版面尺寸/字号契约、project.json、ffmpeg 踩坑
 |   `-- environment.md       环境变量与权限说明
 |-- scripts/                 Python 辅助脚本
 |   |-- generate_fb_markdown_reports.py  主报告脚本（中文 Markdown/JSON/CSV）
@@ -73,6 +84,10 @@ b2b-facebook-ads-manager/
 |   |-- make_page_banner.py  主页封面 Banner 合成（1640x624 + 820x312）
 |   |-- logo_from_photo.py   从招牌照片中提取 logo（去纹理与光晕）
 |   |-- logo_variants.py     生成 logo 全套变体（白底/透明/反白/方形）
+|   |-- make_text_poster.py  纯色文字海报（9:16 / 1:1 / 1.91:1）
+|   |-- inspect_materials.py 工厂素材盘点 + 视频抽帧九宫格
+|   |-- make_overlays.py     获客视频全部文字层 PNG（含结尾卡）
+|   |-- make_video.py        获客视频分段渲染、拼接、音轨、验收
 |   `-- common.py            公共请求层：token 安全、重试退避、分页游标
 |-- requirements.txt         依赖
 |-- README.md
@@ -94,6 +109,8 @@ $skill-installer install https://github.com/laoqinmml/b2b-facebook-ads-manager
 ```bash
 pip install -r requirements.txt
 ```
+
+工厂获客视频模式另外需要外部 `ffmpeg` / `ffprobe`（PATH 上能找到即可），Python 侧只用到 Pillow。
 
 | 变量 | 必填 | 说明 |
 |---|---|---|
@@ -157,6 +174,15 @@ python scripts/logo_from_photo.py --src sign.jpg --prefix company-logo --out-dir
   --keep-box 48,62,588,492
 python scripts/logo_variants.py --src output/logo/company-logo-whitebg.png \
   --prefix company-logo --out-dir output/logo
+```
+
+工厂获客视频（本地渲染，不涉及账户；需要 ffmpeg）：
+
+```bash
+python scripts/inspect_materials.py "D:\素材文件夹" --out "素材清单.md" --contact-sheet
+python scripts/make_overlays.py project.json
+python scripts/make_video.py project.json
+python scripts/make_video.py project.json --check
 ```
 
 ## 安全约定
