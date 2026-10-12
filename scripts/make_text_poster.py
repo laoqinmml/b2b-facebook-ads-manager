@@ -137,29 +137,56 @@ def measure(draw, sizes, content_w, brand, title, body, bullets):
     }
 
 
+def fit_factor(draw, base, content_w, avail_h, brand, title, body, bullets,
+               ceiling=6.0, floor=0.04, steps=32):
+    """Largest uniform multiplier on `base` that still fits the safe area."""
+    def total(k):
+        sizes = [s * k for s in base]
+        return measure(draw, sizes, content_w, brand, title, body, bullets)["total"]
+
+    if total(ceiling) <= avail_h:
+        return ceiling
+    lo, hi = floor, ceiling
+    for _ in range(steps):
+        mid = (lo + hi) / 2.0
+        if total(mid) <= avail_h:
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
+
 def build(w, h, bg, brand, title, body, bullets, footer, out,
-          title_scale=0.080, text_scale=1.0):
+          title_scale=0.080, text_scale=1.0, margin_x=0.105, margin_y=0.075,
+          top_bias=TOP_BIAS, fit=False):
     canvas = Image.new("RGB", (w, h), bg)
     d = ImageDraw.Draw(canvas)
 
-    mx = int(round(w * 0.105))
-    my = int(round(h * 0.075))
+    mx = int(round(w * margin_x))
+    my = int(round(h * margin_y))
     content_w = w - 2 * mx
     avail_h = h - 2 * my
     align = "center" if (w / float(h)) > 1.2 else "left"
 
-    sizes = [w * title_scale, w * 0.0362 * text_scale, w * 0.0362 * text_scale,
-             w * 0.0185 * text_scale]
-    floor = w * 0.030
-    m = measure(d, sizes, content_w, brand, title, body, bullets)
-    while m["total"] > avail_h and sizes[0] > floor:
-        sizes = [s * 0.985 for s in sizes]
+    base = [w * title_scale, w * 0.0362 * text_scale, w * 0.0362 * text_scale,
+            w * 0.0185 * text_scale]
+    if fit:
+        # Grow the whole block until it just fills the safe area, so the copy
+        # spans the frame instead of floating in the middle of it.
+        sizes = [s * fit_factor(d, base, content_w, avail_h, brand, title, body, bullets)
+                 for s in base]
+    else:
+        sizes = list(base)
+        floor = w * 0.030
         m = measure(d, sizes, content_w, brand, title, body, bullets)
+        while m["total"] > avail_h and sizes[0] > floor:
+            sizes = [s * 0.985 for s in sizes]
+            m = measure(d, sizes, content_w, brand, title, body, bullets)
     sizes = [int(round(s)) for s in sizes]
     m = measure(d, sizes, content_w, brand, title, body, bullets)
 
     slack = max(0.0, avail_h - m["total"])
-    y = my + slack * TOP_BIAS
+    y = my + slack * top_bias
     x0 = mx
 
     if brand:
@@ -213,6 +240,18 @@ def main():
     ap.add_argument("--footer", default="", help="small line pinned to the bottom")
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--prefix", required=True)
+    ap.add_argument("--margin-x", type=float, default=0.105,
+                    help="left/right margin as a fraction of the width (default 0.105)")
+    ap.add_argument("--margin-y", type=float, default=0.075,
+                    help="top/bottom margin as a fraction of the height (default 0.075)")
+    ap.add_argument("--top-bias", type=float, default=TOP_BIAS,
+                    help="share of the leftover space placed above the block (default 0.28)")
+    ap.add_argument("--title-scale", type=float, default=None,
+                    help="override the headline size fraction, e.g. 0.115")
+    ap.add_argument("--text-scale", type=float, default=None,
+                    help="override the body/bullet size multiplier, e.g. 1.15")
+    ap.add_argument("--fit", action="store_true",
+                    help="grow the whole block until it fills the safe area")
     args = ap.parse_args()
 
     bullets = [b.strip() for b in args.bullets.split(";") if b.strip()]
@@ -230,10 +269,16 @@ def main():
             targets.append((key, RATIOS[key]))
 
     for key, (w, h, title_scale, text_scale) in targets:
+        if args.title_scale is not None:
+            title_scale = args.title_scale
+        if args.text_scale is not None:
+            text_scale = args.text_scale
         out = os.path.join(args.out_dir, "%s-%s.png" % (args.prefix, key))
         path, size = build(w, h, bg, args.brand, args.title, args.body,
                            bullets, args.footer, out, title_scale=title_scale,
-                           text_scale=text_scale)
+                           text_scale=text_scale, margin_x=args.margin_x,
+                           margin_y=args.margin_y, top_bias=args.top_bias,
+                           fit=args.fit)
         print("%-8s %dx%d  %s" % (key, size[0], size[1], path))
 
 
