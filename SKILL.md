@@ -1,17 +1,18 @@
 ---
 name: b2b-facebook-ads-manager
-description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作（新建默认 PAUSED、任何写操作须明确确认）；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写带工厂身份的自然流帖子文案；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频（FB/IG/TikTok 广告、Reels）。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页封面图、清理 logo、写 FB 帖子，或提供工厂/产线/产品素材要获客视频、工厂视频、上下分屏、凸显 B 端身份、前三秒出现中国供应商时使用。
+description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作（新建默认 PAUSED、任何写操作须明确确认）；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写带工厂身份的自然流帖子文案；引导工厂老板逐步共创视频标题、关键词、英文口播、逐镜头拍摄脚本和 9:16 视频封面；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频（FB/IG/TikTok 广告、Reels）。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页封面图、清理 logo、写 FB 帖子，或提供工厂/产线/产品素材要获客视频、工厂视频、口播稿、拍摄脚本、视频封面、上下分屏、凸显 B 端身份、前三秒出现中国供应商时使用。
 ---
 
 # B2B Facebook Ads Manager（Meta 广告报告、受众研究、安全操作、B2B 广告构建、主页物料与获客视频）
 
-Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，覆盖六种工作模式：
+Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，覆盖七种工作模式：
 
 - **报告模式**：生成中文 Markdown 账户表现报告（只读）。见 [references/reporting.md](references/reporting.md)。
 - **管理模式**：诊断、优化建议，并在用户明确确认后执行写操作。见 [references/management.md](references/management.md)。
 - **受众研究模式**：查找目标受众、兴趣、隐藏兴趣，估算国家/地区覆盖。见 [references/audience.md](references/audience.md)。
 - **B2B 广告构建模式**：从产品资料到英文文案、中文审查翻译、素材、线索表单和 Ads Manager 落地。见 [references/b2b-ad-builder.md](references/b2b-ad-builder.md)。
 - **主页物料模式**：主页封面 Banner、纯色文字海报、实拍照片转 Logo 资产、自然流帖子文案。见 [references/page-banner.md](references/page-banner.md)、[references/text-poster.md](references/text-poster.md)、[references/logo-assets.md](references/logo-assets.md)、[references/page-post-copy.md](references/page-post-copy.md)。
+- **工厂视频脚本共创模式**：通过短问题逐步确认产品、买家、事实和关键词，生成标题、英文口播、拍摄脚本与视频封面方案。见 [references/factory-video-script-coach.md](references/factory-video-script-coach.md)。
 - **工厂获客视频模式**：素材文件夹 → 上下分屏 9:16 获客短片（中缝常驻 China XXX Supplier 大标题）。见 [references/factory-video.md](references/factory-video.md)、[references/factory-video-layout.md](references/factory-video-layout.md)。
 
 ## 引导式开场（首次使用 / 意图不明时）
@@ -24,6 +25,7 @@ Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，
    - 诊断与优化建议（改动需确认）
    - B2B 广告构建（文案 / 素材 / 表单 / 建广告）
    - 主页物料（封面 Banner / Logo 资产 / 帖子文案）
+   - 工厂视频脚本共创（关键词 / 口播 / 拍摄脚本 / 视频封面）
    - 工厂获客视频（素材文件夹 → 上下分屏短片）
 2. 按选择进入对应模式；每个模式按 [references/onboarding.md](references/onboarding.md) 的提问顺序收集信息，一次只问一组必要问题，不抛长问卷。
 3. 先检查前置条件（token 是否已设置、账户是否已知），并在用户要设置 token 前先做模型来源检查：当前用国内模型时，按「安全规则」提示 FB 个人账号受限与封号风险并建议换国外模型，等用户明确回复再继续。
@@ -32,7 +34,7 @@ Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，
 
 用户请求已明确（如“出近 30 天报告”）时，直接进入对应模式，不重复走开场问题。
 
-## 安全规则（六种模式通用）
+## 安全规则（七种模式通用）
 
 - 绝不打印、重复、存储或在报告、日志、代码文件、回复中包含访问口令 `FB_ACCESS_TOKEN`。优先从环境变量读取；用户粘贴的口令只作临时环境变量，用后立即移除。
 - **接入 token 前先做模型来源检查（强制）**：用户要提供 / 设置 `FB_ACCESS_TOKEN`、登录或对接 FB 后台、跑任何请求 Meta 接口的动作之前，先判断当前会话所用模型是不是国内模型，然后按下面的分支处理；不确定就先问，不要默认跳过。
@@ -66,9 +68,20 @@ Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，
 - **大标题从第一秒起常驻画面正中**（`brand.title_lines`），贯穿全片；中缝同时承载每段卖点字幕，不要把字幕塞回顶部条。
 - **静帧素材一律不动**：照片不做推拉和缓慢缩放，只有视频素材播放。对产品静图做 Ken Burns 会发虚显假。
 - **上屏讲"我们是工厂"，下屏讲"东西卖得掉"**；每段约 3 秒，全片 20–25 秒。
+- **配乐来源**：可推荐用户提供的 [YouTube 音乐频道](https://www.youtube.com/channel/UCQsBfyc5eOobgCzeY8bBzFg)作为候选；使用前逐曲核实广告商用及目标平台授权，详见 [references/factory-video.md](references/factory-video.md)。
 - **文字层和主页物料同一套规矩**：品牌名、公司名、卖点数字一律用 Pillow 确定性排版，不用图像模型生成文字。
 - **必须人眼看过抽帧总览图再交付**；交付四件：成片 mp4、封面帧、素材盘点 md、交付说明 md。
 - 该模式只写本地文件和调用本地 ffmpeg，不触碰广告账户；要把成片用于投放或上传时，按写操作规则先取得明确确认。
+
+## 工厂视频脚本共创分支
+
+用户还没有现成脚本，只知道“想拍工厂视频”时，先走 [references/factory-video-script-coach.md](references/factory-video-script-coach.md)，不要直接套用泛化口播。
+
+- 一次只问一组小问题，按“目标 → 产品 → 买家 → 可拍证据 → 关键词 → 脚本角度 → 文字草稿 → 分镜 → 封面”推进。
+- 把产品词、身份词、买家/应用词和采购行动词自然分配到标题、正文、口播和 CTA；不堆砌关键词、不承诺关键词重复会带来排名。
+- 先用老板确认过的事实写脚本，再生成封面；公司名、产品名、型号、数字和认证用确定性文字排版。
+- 默认交付 `factory-video-script.md`、`factory-video-shot-list.md`、`factory-video-cover-copy.md`；用户要求时再生成 `factory-video-cover.png`。
+- 本分支只写本地文案和图片，不索要 `FB_ACCESS_TOKEN`，不上传或发布广告。
 
 ## 依赖安装
 

@@ -182,8 +182,10 @@ class Renderer:
             fh.write("\n".join(lines) + "\n")
         out = os.path.join(self.out_dir, self.p["name"] + ".mp4")
         os.makedirs(self.out_dir, exist_ok=True)
-        cmd = (["ffmpeg", "-y", "-v", "error", "-hide_banner",
-                "-f", "concat", "-safe", "0", "-i", lst, "-map", "0:v"])
+        # Every -i must precede the first output option: -map is an output
+        # option, so it has to be appended after the optional audio input.
+        cmd = ["ffmpeg", "-y", "-v", "error", "-hide_banner",
+               "-f", "concat", "-safe", "0", "-i", lst]
         audio = self.p.get("audio")
         if audio:
             cmd += ["-stream_loop", "-1", "-i", audio["src"]]
@@ -192,10 +194,10 @@ class Renderer:
                   "afade=t=out:st=%s:d=%s[a]"
                   % (audio.get("lowpass", 4200), audio.get("volume", 0.3), st,
                      audio.get("fade_out", 1.6)))
-            cmd += ["-filter_complex", af, "-map", "[a]",
+            cmd += ["-filter_complex", af, "-map", "0:v", "-map", "[a]",
                     "-c:a", "aac", "-b:a", "128k", "-ar", "44100", "-shortest"]
         else:
-            cmd += ["-an"]
+            cmd += ["-map", "0:v", "-an"]
         cmd += ["-c:v", "libx264", "-preset", "slow", "-crf", "19",
                 "-pix_fmt", "yuv420p", "-r", str(self.fps),
                 "-movflags", "+faststart", out]
