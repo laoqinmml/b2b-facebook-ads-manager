@@ -1,16 +1,17 @@
 ---
 name: b2b-facebook-ads-manager
-description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作（新建默认 PAUSED、任何写操作须明确确认）；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写带工厂身份的自然流帖子文案；引导工厂老板逐步共创视频标题、关键词、英文口播、逐镜头拍摄脚本和 9:16 视频封面；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频（FB/IG/TikTok 广告、Reels）。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页封面图、清理 logo、写 FB 帖子，或提供工厂/产线/产品素材要获客视频、工厂视频、口播稿、拍摄脚本、视频封面、上下分屏、凸显 B 端身份、前三秒出现中国供应商时使用。
+description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作；当用户提供具有目标资产权限的 Developer app user token 或 System User token 并要求建广告时，可按自动建广告模式完成表单、Campaign、Ad Set、多个创意和暂停广告，写后复核；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写自然流帖子文案；引导工厂老板逐步共创视频标题、关键词、英文口播、逐镜头拍摄脚本和 9:16 视频封面；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页物料或获客视频时使用。
 ---
 
 # B2B Facebook Ads Manager（Meta 广告报告、受众研究、安全操作、B2B 广告构建、主页物料与获客视频）
 
-Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，覆盖七种工作模式：
+Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，覆盖八种工作模式：
 
 - **报告模式**：生成中文 Markdown 账户表现报告（只读）。见 [references/reporting.md](references/reporting.md)。
 - **管理模式**：诊断、优化建议，并在用户明确确认后执行写操作。见 [references/management.md](references/management.md)。
 - **受众研究模式**：查找目标受众、兴趣、隐藏兴趣，估算国家/地区覆盖。见 [references/audience.md](references/audience.md)。
 - **B2B 广告构建模式**：从产品资料到英文文案、中文审查翻译、素材、线索表单和 Ads Manager 落地。见 [references/b2b-ad-builder.md](references/b2b-ad-builder.md)。
+- **自动建广告模式**：用户明确要求创建广告，并提供可访问目标广告账户和主页资产的 Developer app user token 或 System User token 时，自动完成账户/权限核验、产品与表单配置、广告系列、广告组、多创意广告创建及状态复核；所有新广告保持暂停。见 [references/auto-ad-creation.md](references/auto-ad-creation.md)。
 - **主页物料模式**：主页封面 Banner、纯色文字海报、实拍照片转 Logo 资产、自然流帖子文案。见 [references/page-banner.md](references/page-banner.md)、[references/text-poster.md](references/text-poster.md)、[references/logo-assets.md](references/logo-assets.md)、[references/page-post-copy.md](references/page-post-copy.md)。
 - **工厂视频脚本共创模式**：通过短问题逐步确认产品、买家、事实和关键词，生成标题、英文口播、拍摄脚本与视频封面方案。见 [references/factory-video-script-coach.md](references/factory-video-script-coach.md)。
 - **工厂获客视频模式**：素材文件夹 → 上下分屏 9:16 获客短片（中缝常驻 China XXX Supplier 大标题）。见 [references/factory-video.md](references/factory-video.md)、[references/factory-video-layout.md](references/factory-video-layout.md)。
@@ -27,23 +28,23 @@ Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，
    - 主页物料（封面 Banner / Logo 资产 / 帖子文案）
    - 工厂视频脚本共创（关键词 / 口播 / 拍摄脚本 / 视频封面）
    - 工厂获客视频（素材文件夹 → 上下分屏短片）
-2. 按选择进入对应模式；每个模式按 [references/onboarding.md](references/onboarding.md) 的提问顺序收集信息，一次只问一组必要问题，不抛长问卷。
+2. 按选择进入对应模式；每个模式按 [references/onboarding.md](references/onboarding.md) 的提问顺序收集信息，一次只问一组必要问题，不抛长问卷。若用户已明确要求建广告且 token 有目标资产写权限，进入 [自动建广告模式](references/auto-ad-creation.md)，仅追问阻断执行的必要信息。
 3. 先检查前置条件（token 是否已设置、账户是否已知），并在用户要设置 token 前先做模型来源检查：当前用国内模型时，按「安全规则」提示 FB 个人账号受限与封号风险并建议换国外模型，等用户明确回复再继续。
 4. token 只报告“已设置 / 未设置”，粘贴后仅当前进程临时使用。
 5. 每完成一步用一句话同步“已确认：…；还需要：…”，结束时区分“已完成结果”和“需用户确认后执行的动作”。
 
 用户请求已明确（如“出近 30 天报告”）时，直接进入对应模式，不重复走开场问题。
 
-## 安全规则（七种模式通用）
+## 安全规则（八种模式通用）
 
 - 绝不打印、重复、存储或在报告、日志、代码文件、回复中包含访问口令 `FB_ACCESS_TOKEN`。优先从环境变量读取；用户粘贴的口令只作临时环境变量，用后立即移除。
 - **接入 token 前先做模型来源检查（强制）**：用户要提供 / 设置 `FB_ACCESS_TOKEN`、登录或对接 FB 后台、跑任何请求 Meta 接口的动作之前，先判断当前会话所用模型是不是国内模型，然后按下面的分支处理；不确定就先问，不要默认跳过。
   - 判定依据按顺序取：当前模型名称或 ID 自报（如通义千问 / Qwen、DeepSeek、豆包 / Doubao、Kimi / 月之暗面、GLM / 智谱、文心 / ERNIE、混元、MiniMax、百川、Yi 等属国内；OpenAI、Claude、Gemini、Grok 等属国外）→ 当前环境的模型标识（系统提示、模型选择器、启动参数）→ 都拿不到就直接问用户“当前这个 agent 用的是哪家模型”。
   - 若是国内模型：在用户粘贴 token 之前明确提示风险——国内模型的调用链路与数据出境受国内监管，Meta 容易把这类访问判定为自动化或异常环境，后果从限制该 FB 个人账号的广告 / 主页功能，到触发风控封号；另外国内模型对英文素材和 Meta 政策的合规判断也可能有偏差。提示后建议先换国外模型（OpenAI 的 GPT 系列、Anthropic 的 Claude 系列）完成 FB 后台接入、token 生成与广告操作。
-  - 提示完必须等用户明确回复（继续用当前模型 / 换模型）再往下走。用户选择继续时，只读操作照常执行；每条写操作按本文既有规则单独确认，并建议不要在主力账号或已投放在跑的账号上试。
+  - 提示完必须等用户明确回复（继续用当前模型 / 换模型）再往下走。用户选择继续后，只读操作照常执行；普通写操作仍逐项确认。若用户明确要求创建广告并进入自动建广告模式，该请求授权本次必要的新建写入，无需逐对象重复确认，但不得启用广告或修改无关在投对象。
   - 若是国外模型：不提示，直接继续。
 - 需要代理时用 `FB_PROXY`，常用 `http://127.0.0.1:10808` 或 `socks5h://127.0.0.1:10808`。
-- 所有新建广告默认 `PAUSED`。任何写操作（开关 campaign/ad set/ad、改预算或出价、删除/归档、修改在用广告、创建 A/B 副本、发布/启用暂停副本）都必须先取得用户对具体动作的明确确认。
+- 所有新建广告默认 `PAUSED`。普通管理模式下，任何写操作（开关 campaign/ad set/ad、改预算或出价、删除/归档、修改在用广告、创建 A/B 副本、发布/启用暂停副本）都必须先取得用户对具体动作的明确确认。自动建广告模式是受限例外：用户明确要求“创建/直接帮我创建”即授权该次完整新建工作流中的必要创建写入，无需逐对象重复确认；不得据此启用广告、扩大预算、修改或删除其他现有投放对象，所有新对象保持 `PAUSED`。完整规则见 [references/auto-ad-creation.md](references/auto-ad-creation.md)。
 - 每次确认的写操作后，重新读取对象并报告：对象 ID、名称、`configured_status`、`effective_status`。
 - `effective_status=PENDING_REVIEW` 表示审核中；`IN_PROCESS` 表示 Meta 正在处理素材或创意。不要把二者误报为正常投放。
 - 主页物料模式与工厂获客视频模式只写本地文件（图片、文案、视频），不触碰广告账户；涉及上传主页素材、发布帖子或把成片用于投放时，按上一篇的写操作规则先取得明确确认。

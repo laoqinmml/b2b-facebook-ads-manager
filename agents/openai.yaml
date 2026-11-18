@@ -1,4 +1,4 @@
 interface:
   display_name: "B2B Facebook Ads Manager"
-  short_description: "Meta广告、主页物料及工厂视频脚本、口播、封面与获客剪辑"
-  default_prompt: "Use $b2b-facebook-ads-manager to guide a factory owner step by step through product keywords, an English video script, a shot list and a video cover, or to manage Meta B2B ads and factory marketing assets."
+  short_description: "Meta广告报告、B2B线索广告自动创建、受众研究及工厂获客内容"
+  default_prompt: "Use $b2b-facebook-ads-manager to research Meta audiences, build B2B lead ads, or, with a valid Developer app user or System User token and user request, automatically create paused campaigns, ad sets, lead forms and creatives. Also support factory video scripts and marketing assets."
