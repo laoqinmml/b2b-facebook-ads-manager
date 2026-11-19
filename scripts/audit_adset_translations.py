@@ -9,7 +9,12 @@ from urllib.parse import urlsplit
 import requests
 
 
-FEATURES = ("text_translation", "image_text_translation", "translate_voiceover")
+FEATURES = (
+    "text_translation",
+    "image_text_translation",
+    "text_overlay_translation",
+    "translate_voiceover",
+)
 FIELDS = "id,name,configured_status,effective_status,creative{id,degrees_of_freedom_spec}"
 
 

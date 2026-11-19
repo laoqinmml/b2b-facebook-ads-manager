@@ -36,8 +36,9 @@
 ## 自动翻译：所有语言
 
 - 用户要求“翻译全部打开 / 所有语言”时，在广告创意层配置 Meta 自动翻译，范围为 Meta 按素材、账户和版位支持的语言。它不改变广告组的语言定向、国家、预算、版位或启停状态，也不翻译即时表单。未授权时不要主动启用，也不要替用户接受新出现的 Meta AI 条款。
-- **新建创意**：使用官方 `POST /act_<ACCOUNT_ID>/adcreatives`。在 `degrees_of_freedom_spec.creative_features_spec` 中把适用功能的 `enroll_status` 设为 `OPT_IN`：`text_translation` 用于广告文案，`image_text_translation` 用于支持的图片文字，`translate_voiceover` 仅用于有可翻译语音且符合条件的视频。音乐轮播没有口播时不设置配音翻译。合并翻译字段，保留已有的其他创意增强设置。要使用 Meta 支持的全部语言，不填自行维护的语言名单，也不写入未公开的语言选择字段。
-- **更新整个现有广告组**：分页读取 `GET /<AD_SET_ID>/ads`，覆盖原有广告和新增广告。记录每条广告及其 creative ID、配置状态、实际状态和翻译字段。Meta 官方 Business SDK 的现有创意更新接口没有公开 `degrees_of_freedom_spec` 写入参数；不能把直接修改原创意当作正式支持的流程，也不能把可能被忽略的 POST 当成功。若要从后台更新，需能完整还原原创意的素材、各比例和版位规则、变体、表单、CTA 等，并核对更换 creative 是否会影响帖子互动或重新审核。只有确认能保留所需行为并获准采取这一路径时，才创建新 creative 并绑定原广告；不复制广告、不传入广告状态变更。如果无法确认兼容性，报告受阻项，用户指定仅后台时不自动切换浏览器。
-- **复核**：重读广告的 creative 和 `degrees_of_freedom_spec.creative_features_spec`，逐条确认适用功能及广告状态。API 返回 `OPT_IN` 只能证明该功能已启用；如果 API 不返回语言范围，就把「所有语言」记为未能通过 API 单独核实，不能把空配置或投放定向的语言列表当作凭证。区分已开启、未支持、未能核实和未应用。
+- **新建创意**：使用官方 `POST /act_<ACCOUNT_ID>/adcreatives`。在 `degrees_of_freedom_spec.creative_features_spec` 中把适用功能的 `enroll_status` 设为 `OPT_IN`：`text_translation` 用于广告文案，`image_text_translation` 用于 Meta 支持的图片文字，`text_overlay_translation` 是独立字段，`translate_voiceover` 仅用于有可翻译语音且符合条件的视频。音乐轮播没有口播时不设置配音翻译。合并字段，保留已有的其他创意增强设置。API 返回文案翻译 `OPT_IN` 不代表图片中的英文会被翻译；须单独回读图片翻译字段。
+- **更新整个现有广告组**：分页读取 `GET /<AD_SET_ID>/ads`，覆盖原有广告和新增广告。Meta 官方 Business SDK 的现有创意更新接口没有公开 `degrees_of_freedom_spec` 写入参数；对现有创意直接 POST 此字段曾返回 Graph API 错误 `(#100 / 1815573)`，不能重试成“成功”。如果用户授权更新现有广告，可完整读取原创意，创建等价新 creative 并将其绑定到原 ad；对比素材、比例、版位规则、文案变体、主页身份、表单、CTA 和所有现存创意增强设置。先仅对一个广告验证新 creative 的完整回读及内容等价，再继续其余广告。不要复制广告或提交广告状态变更；新 creative 可能令广告重新审核，必须回读 ad 状态并如实报告。
+- **复核**：重读广告的 creative 和 `degrees_of_freedom_spec.creative_features_spec`，逐条确认适用功能及广告状态。Meta 后台实测中，七条 VORLIX 图片广告通过等价 creative 替换后，`text_translation` 均回读为 `OPT_IN`，广告保持 `PAUSED`。但提交 `image_text_translation=OPT_IN` 后，该字段在新 creative 的 API 回读中缺失，`text_overlay_translation` 仍为 `OPT_OUT`；因此只可报告文案翻译已启用，不能声称广告图片中的文字已翻译。字段缺失是“未能核实”，不是“已启用”。视频含配乐而无口播时，配音翻译保持关闭。
+- API 的 `OPT_IN` 确认的是对应功能注册，并不能单独证明 Meta 实际支持或提供的具体语言清单。若用户的“所有语言”要求语言范围逐项可证，须从 Meta 界面核对所选语言；用户指定只用后台 API 时，不切换到浏览器，应报告 API 可核实的范围和限制。空配置、缺失字段或广告组的语言定向都不能作为“所有语言”已完成的证据。
 
 后台排查可运行 `python scripts/audit_adset_translations.py --adset-id <AD_SET_ID>`。脚本只读，使用当前进程的 `FB_ACCESS_TOKEN`，支持 `FB_PROXY`，按广告返回平台实际公开的翻译信息。
