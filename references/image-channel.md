@@ -14,11 +14,12 @@
 
 `gpt-image-2` 接受任意 `宽x高`，条件是两边都是 16 的倍数、长边:短边 ≤ 3:1、总像素在 655,360–8,294,400 之间。
 
-Facebook 版位固定这三套，不要用别的尺寸：
+Facebook / Instagram 广告素材按版位选用以下四套比例：
 
 | 版位 | 比例 | 尺寸 |
 |---|---|---|
 | Stories / Reels / Reels Overlay | 9:16 | `1152x2048` |
+| Feed 竖版 | 4:5 | `1088x1360` |
 | Feed / Profile Feed / Search / Notification | 1:1 | `1536x1536` |
 | In-stream / 横版 | 1.91:1 | `1920x1008` |
 
@@ -37,7 +38,7 @@ powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.agents\skills\jojoco
 
 ## 换比例：用参考图重排，不要拉伸
 
-同一张素材要补另外两个比例时，把原图当参考图传给 bundled CLI 的 `edit`，要求"同一套设计、同一套文字，只换版式"，不要裁切或等比拉伸。
+同一张素材要补其他比例时，把原图当参考图传给 bundled CLI 的 `edit`，要求"同一套设计、同一套文字，只换版式"，不要裁切或等比拉伸。4:5 生图尺寸用满足接口 16 倍数限制的 `1088x1360`，文件名用 `4x5`。
 
 ```powershell
 $cfg = Get-Content "$env:USERPROFILE\.agents\skills\jojocode-imagegen\config.json" -Raw | ConvertFrom-Json
@@ -51,6 +52,7 @@ $cli = "$env:USERPROFILE\.codex\skills\.system\imagegen\scripts\image_gen.py"
 
 - 必须用该技能自带 `.venv` 里的 python；系统 python 没有 `openai` SDK，会直接报 `openai SDK not installed`。
 - 横版按左右分栏重排（文字栏 + 主图整幅出血），方形按上下分区重排；信息层级要按比例重新安排，不要缩放原版。
+- 4:5 按 Feed 竖版重新排版，避免直接裁掉 9:16 顶部标题或底部 CTA。
 - 参考图通道同样受上面的尺寸规则约束。
 
 ## 生成后必查

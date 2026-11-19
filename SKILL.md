@@ -1,6 +1,6 @@
 ---
 name: b2b-facebook-ads-manager
-description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作；当用户提供具有目标资产权限的 Developer app user token 或 System User token 并要求建广告时，可按自动建广告模式完成表单、Campaign、Ad Set、多个创意和暂停广告，写后复核；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写自然流帖子文案；引导工厂老板逐步共创视频标题、关键词、英文口播、逐镜头拍摄脚本和 9:16 视频封面；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页物料或获客视频时使用。
+description: 管理 Meta/Facebook 广告账户、主页内容与外贸 B2B 获客视频的全流程技能：生成中文 Markdown 表现报告（近 7/30 天、同环比、表单线索/消息对话成效分离、花费上限余额预警）；研究目标受众、兴趣、隐藏兴趣并估算国家/地区覆盖；诊断并安全执行广告操作；当用户提供具有目标资产权限的 Developer app user token 或 System User token 并要求建广告时，可按自动建广告模式完成表单、Campaign、Ad Set、多个创意和暂停广告，写后复核；为制造商、机械设备供应商、外贸 B2B 企业研究产品并生成英文线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/4:5/1:1/1.91:1 版位素材和高意向即时表单；制作主页封面 Banner（1640x624）、把实拍招牌照片转成全套 Logo 资产、写自然流帖子文案；引导工厂老板逐步共创视频标题、关键词、英文口播、逐镜头拍摄脚本和 9:16 视频封面；把工厂/产品素材文件夹剪成上下分屏、中缝常驻 China XXX Supplier 大标题的 9:16 B2B 获客短视频。用户提供 Meta 访问口令、广告账户、Ads Manager 链接或对象 ID，或要求 FB 广告报告、受众研究、诊断、优化、创建/复制广告、写 B2B 广告文案、做主页物料或获客视频时使用。
 ---
 
 # B2B Facebook Ads Manager（Meta 广告报告、受众研究、安全操作、B2B 广告构建、主页物料与获客视频）
@@ -55,7 +55,7 @@ Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，
 公司名、品牌拼写、中文字形这类不能错的信息，一律用确定性方式产出，不用 AI 生成：
 
 - **封面 Banner**：`scripts/make_page_banner.py`，真实照片 + 精确排版，同时导出 1640×624 与桌面显示尺寸 820×312；文字避开左下角（主页头像会压住）。详见 [references/page-banner.md](references/page-banner.md)。
-- **纯色文字海报**：`scripts/make_text_poster.py`，纯色底 + 纯白文字、零照片，一次出 9:16 / 1:1 / 1.91:1；纯文字图不交给 AI 生图。详见 [references/text-poster.md](references/text-poster.md)。
+- **纯色文字海报**：`scripts/make_text_poster.py`，纯色底 + 纯白文字、零照片，一次出 9:16 / 4:5 / 1:1 / 1.91:1；纯文字图不交给 AI 生图。详见 [references/text-poster.md](references/text-poster.md)。
 - **Logo 资产**：只有实拍招牌照片时，先 `$jojocode-imagegen` 清理成纯白底纯黑字，再 `scripts/logo_from_photo.py` 抠 alpha、`scripts/logo_variants.py` 出白底/透明/反白/1080 方形全套；只清理不重画。详见 [references/logo-assets.md](references/logo-assets.md)。
 - **帖子文案**：英文正文 + 中文对照，一段一个意思、段间空行；B2B 主页用"工厂身份"做钩子（`Factory, not a trading company.`），不编造认证、MOQ、产能，不写客户彩盒上的第三方品牌。详见 [references/page-post-copy.md](references/page-post-copy.md)。
 - **主页简介与主页信息**：写 FB 主页简介、About、把空主页补完整时，改用 `$fb-page-profile-builder` 技能（引导式逐字段完善，含 255 字符简介与字段检查脚本）。

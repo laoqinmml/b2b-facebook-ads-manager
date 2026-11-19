@@ -3,9 +3,10 @@
 Solid-colour + white-text Facebook poster builder.
 
 Deterministic typography on a flat brand-colour field: no photo, no AI, so the
-copy can never be misspelled or garbled. Renders the three placement ratios:
+copy can never be misspelled or garbled. Renders four placement ratios:
 
     9x16   1080x1920   Stories / Reels / Reels Overlay
+    4x5    1080x1350   Facebook / Instagram Feed portrait
     1x1    1080x1080   Feed / Profile Feed / Search / Notification
     1.91x1 1200x628    In-stream / landscape
 
@@ -33,6 +34,7 @@ SANS_SEMI = ("segoeuisl.ttf", "segoeui.ttf", "arial.ttf")
 # ratio -> (width, height, headline size as a fraction of the width, text scale)
 RATIOS = {
     "9x16": (1080, 1920, 0.072, 1.18),
+    "4x5": (1080, 1350, 0.080, 1.08),
     "1x1": (1080, 1080, 0.080, 1.0),
     "1.91x1": (1200, 628, 0.072, 1.0),
 }
@@ -229,7 +231,7 @@ def build(w, h, bg, brand, title, body, bullets, footer, out,
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--ratio", default="9x16,1x1,1.91x1",
+    ap.add_argument("--ratio", default="9x16,4x5,1x1,1.91x1",
                     help="comma separated, any of: %s" % ", ".join(sorted(RATIOS)))
     ap.add_argument("--size", default=None, help="override one size, e.g. 1080x1080")
     ap.add_argument("--bg", default="1B5942", help="solid background hex colour")

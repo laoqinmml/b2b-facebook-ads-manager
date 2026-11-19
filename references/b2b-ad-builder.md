@@ -1,6 +1,6 @@
 # B2B 广告构建模式（B2B Ad Builder）
 
-为制造商、机械设备供应商和外贸 B2B 企业研究产品资料，生成可信的英文 Meta/Facebook 线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/1:1/1.91:1 版位素材和即时表单。普通写操作按管理模式逐项确认；满足条件时转入 [自动建广告模式](auto-ad-creation.md)，创建的新广告默认暂停。
+为制造商、机械设备供应商和外贸 B2B 企业研究产品资料，生成可信的英文 Meta/Facebook 线索广告文案、中文审查翻译、5 组测试版本、产品海报、9:16/4:5/1:1/1.91:1 版位素材和即时表单。普通写操作按管理模式逐项确认；满足条件时转入 [自动建广告模式](auto-ad-creation.md)，创建的新广告默认暂停。
 
 默认使用中文沟通，广告成品使用自然、专业、易懂的英文。支持从产品事实到文案、视觉素材、线索表单和 Meta Ads Manager 的完整工作流。
 
@@ -109,17 +109,18 @@ Descriptions x 5
 
 先生成一个方向供审查，再按具体反馈只改目标项。海报文字少而清晰，留足安全边距；不要把 Meta 自带的 CTA 按钮画进海报，除非用户明确要求。工业简洁风应移除咖啡豆、粉末、碗、烟雾、蒸汽和无关装饰。
 
-通常制作三套独立排版，不简单拉伸或强行裁切，并保持 Logo、文案、色彩和设备结构一致：
+通常制作四套独立排版，不简单拉伸或强行裁切，并保持 Logo、文案、色彩和设备结构一致：
 
 - `9:16`，`1152x2048`：Stories、Reels、Reels Overlay。
+- `4:5`，`1080x1350`：Facebook / Instagram Feed 竖版。
 - `1:1`，`1536x1536`：Feed、Profile Feed、Search、Notification。
 - `1.91:1`，`1920x1008`：In-stream Video 和适合横向素材的版位。
 
-方形和横版需重新安排信息层级，确保机器与文字不被裁切。
+四个比例都应分别排版；4:5 与 1:1 面向 Feed 时按广告预览和版位定制规则指定对应素材，确保机器与文字不被裁切。
 
-补另外两个比例时，把已确认的那张当参考图走 `edit` 重排，保留同一套文案和设计系统。重排后主图会被重新生成，角度和细节与原版不完全一致；用户要求三个比例主图完全一致时，改用确定性做法（从原图抠出主图复用，文字层用脚本或精确排版重搭），并在交付说明里写清楚两种做法的主图差异。
+补其他比例时，把已确认的那张当参考图走 `edit` 重排，保留同一套文案和设计系统。重排后主图会被重新生成，角度和细节与原版不完全一致；用户要求所有比例主图完全一致时，改用确定性做法（从原图抠出主图复用，文字层用脚本或精确排版重搭），并在交付说明里写清楚两种做法的主图差异。
 
-用户要的是**纯色底 + 纯白文字**的文字海报（没有照片）时，不要走 AI：直接用 `scripts/make_text_poster.py` 出三套比例，样式规范见 [text-poster.md](text-poster.md)。
+用户要的是**纯色底 + 纯白文字**的文字海报（没有照片）时，不要走 AI：直接用 `scripts/make_text_poster.py` 出四套比例，样式规范见 [text-poster.md](text-poster.md)。
 
 ## 即时表单
 
@@ -197,7 +198,7 @@ We use your information to send you a quotation and to contact you about your en
 - 单个广告需要五组 bodies、titles、descriptions 时，使用 `asset_feed_spec` 或当前 API 的等效多素材结构。
 - 图片广告保留媒体、Page、Form、CTA 和链接，只替换用户要求的字段。
 - 视频广告保留原视频 ID、缩略图、Page、Form、CTA 和链接，只补充文案字段。
-- 上传三种尺寸后用素材标签和版位定制规则映射：`9:16` 到 Reels/Reels Overlay，`1:1` 到 Feed/Profile Feed/Search/Notification，`1.91:1` 到 In-stream Video。
+- 上传四种尺寸后用素材标签和版位定制规则映射：`9:16` 到 Reels/Reels Overlay，`4:5` 到 Facebook/Instagram Feed 竖版，`1:1` 到 Feed/Profile Feed/Search/Notification，`1.91:1` 到 In-stream Video。
 - 创建新 Creative 后再替换到目标 Ad；保留原广告开关状态，除非用户明确要求改变。
 
 ### 写入后复核

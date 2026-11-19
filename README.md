@@ -33,7 +33,7 @@ Meta / Facebook 广告账户与主页内容全流程管理的 Codex 技能，面
 
 - 从产品事实建立简报，输出 5 组相互独立且有事实支撑的测试角度
 - 英文 Primary Text / Headline / Description 各 5 组，附逐条中文审查翻译
-- 9:16 / 1:1 / 1.91:1 三套版位素材（保留实拍设备结构，不虚构部件）
+- 9:16 / 4:5 / 1:1 / 1.91:1 四套版位素材（保留实拍设备结构，不虚构部件）
 - 高意向即时表单（4-5 个采购筛选问题，含隐私政策提示）
 - Ads Manager 落地：复制兼容设置、新建 PAUSED、写后逐项复核
 - 严格区分用户事实、产品页声明与推断；不编造价格、MOQ、认证、交期、产能、客户数量或评价
@@ -101,7 +101,7 @@ b2b-facebook-ads-manager/
 |   |-- make_page_banner.py  主页封面 Banner 合成（1640x624 + 820x312）
 |   |-- logo_from_photo.py   从招牌照片中提取 logo（去纹理与光晕）
 |   |-- logo_variants.py     生成 logo 全套变体（白底/透明/反白/方形）
-|   |-- make_text_poster.py  纯色文字海报（9:16 / 1:1 / 1.91:1）
+|   |-- make_text_poster.py  纯色文字海报（9:16 / 4:5 / 1:1 / 1.91:1）
 |   |-- inspect_materials.py 工厂素材盘点 + 视频抽帧九宫格
 |   |-- make_overlays.py     获客视频全部文字层 PNG（含结尾卡）
 |   |-- make_video.py        获客视频分段渲染、拼接、音轨、验收
