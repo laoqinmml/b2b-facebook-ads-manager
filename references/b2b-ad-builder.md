@@ -196,6 +196,9 @@ We use your information to send you a quotation and to contact you about your en
 ### 文案与创意
 
 - 单个广告需要五组 bodies、titles、descriptions 时，使用 `asset_feed_spec` 或当前 API 的等效多素材结构。
+- **版位素材与五组文案并用时，检查标签结构，不只数数组项**：Meta 可以在 API 中回读 5 个 `bodies` / `titles` / `descriptions`，但如果每项分别带唯一标签（如 `bodies0`…`bodies4`），而每条 `asset_customization_rule` 只指向其中一个标签，Ads Manager 编辑器按当前版位只会显示被该规则选中的一条。若要同时保留比例映射并在编辑器提供五条文案，参考同账户已验证可显示五条选项的 Creative：每个正文选项共享规则引用的同一组正文标签，每个标题选项共享同一组标题标签；描述按可用规则建立有效的 `description_label` 关联，并保留五个描述项。发布前对比已验证 Creative 的 `adlabels` 拓扑；仅确认 API 数量为 5/5/5 不足以证明编辑器可见五条。
+- **规则要明确且互不重叠**：给每个图片比例配置明确的 `customization_spec`，例如 Reels/Stories 用竖图、Feed 用方图、In-stream 用横图。避免无版位范围的空 `customization_spec` 默认规则与具体规则同时匹配；Meta 曾对桌面动态消息返回 `(#2446035)`，提示多条规则同时适用。多条描述素材与规则标签不匹配时，Meta 可能返回 `(#100 / 1885878)`。遇到此类错误先检查规则和标签引用，不要盲目重试。
+- **候选验证流程**：创建候选 Creative 后先 GET 回读实际文案、媒体哈希、`adlabels`、版位规则、链接、表单和翻译字段；分别检查关键版位预览。确认五条文案都关联到规则后才绑定原 Ad，并保留原 Ad 状态。API 更新后 Ads Manager 已打开的编辑页可能仍显示旧 Creative 或未发布草稿；先区分已保存 Creative 与本地未发布编辑内容，再刷新/重开页面验证，不要把草稿状态误认为 API 写入结果。
 - 图片广告保留媒体、Page、Form、CTA 和链接，只替换用户要求的字段。
 - 视频广告保留原视频 ID、缩略图、Page、Form、CTA 和链接，只补充文案字段。
 - 上传四种尺寸后用素材标签和版位定制规则映射：`9:16` 到 Reels/Reels Overlay，`4:5` 到 Facebook/Instagram Feed 竖版，`1:1` 到 Feed/Profile Feed/Search/Notification，`1.91:1` 到 In-stream Video。
