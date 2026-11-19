@@ -12,6 +12,7 @@ Meta/Facebook 广告账户、主页内容与外贸获客视频的单一入口，
 - **受众研究模式**：查找目标受众、兴趣、隐藏兴趣，估算国家/地区覆盖。见 [references/audience.md](references/audience.md)。
 - **B2B 广告构建模式**：从产品资料到英文文案、中文审查翻译、素材、线索表单和 Ads Manager 落地。见 [references/b2b-ad-builder.md](references/b2b-ad-builder.md)。
 - **自动建广告模式**：用户明确要求创建广告，并提供可访问目标广告账户和主页资产的 Developer app user token 或 System User token 时，自动完成账户/权限核验、产品与表单配置、广告系列、广告组、多创意广告创建及状态复核；所有新广告保持暂停。见 [references/auto-ad-creation.md](references/auto-ad-creation.md)。
+- **广告自动翻译**：用户要求所有语言时，在创意层配置平台支持的翻译功能；指定现有广告组时分页覆盖全组，区分功能启用与语言范围核实。见 [自动翻译：所有语言](references/auto-ad-creation.md#自动翻译所有语言)。
 - **主页物料模式**：主页封面 Banner、纯色文字海报、实拍照片转 Logo 资产、自然流帖子文案。见 [references/page-banner.md](references/page-banner.md)、[references/text-poster.md](references/text-poster.md)、[references/logo-assets.md](references/logo-assets.md)、[references/page-post-copy.md](references/page-post-copy.md)。
 - **工厂视频脚本共创模式**：通过短问题逐步确认产品、买家、事实和关键词，生成标题、英文口播、拍摄脚本与视频封面方案。见 [references/factory-video-script-coach.md](references/factory-video-script-coach.md)。
 - **工厂获客视频模式**：素材文件夹 → 上下分屏 9:16 获客短片（中缝常驻 China XXX Supplier 大标题）。见 [references/factory-video.md](references/factory-video.md)、[references/factory-video-layout.md](references/factory-video-layout.md)。

@@ -32,3 +32,12 @@
 - 不要求、不记录 App Secret。不要手工拼接包含 access token 的 URL，也不要将 token 写入脚本、报告、日志、diff 或最终回复；使用 SDK 的进程内凭据配置，或在直接 HTTP 请求时使用安全的 Authorization header。
 - `(#10)`、`(#200)` 等权限错误需定位缺少的是 token scope、App Review/feature 还是具体资产分配；不能将 BM 级可见性解释为 Page 级可写权限。
 - 写操作失败后先读回对象并核查部分结果，再决定是否继续；不要盲目重放 POST。
+
+## 自动翻译：所有语言
+
+- 用户要求“翻译全部打开 / 所有语言”时，在广告创意层配置 Meta 自动翻译，范围为 Meta 按素材、账户和版位支持的语言。它不改变广告组的语言定向、国家、预算、版位或启停状态，也不翻译即时表单。未授权时不要主动启用，也不要替用户接受新出现的 Meta AI 条款。
+- **新建创意**：使用官方 `POST /act_<ACCOUNT_ID>/adcreatives`。在 `degrees_of_freedom_spec.creative_features_spec` 中把适用功能的 `enroll_status` 设为 `OPT_IN`：`text_translation` 用于广告文案，`image_text_translation` 用于支持的图片文字，`translate_voiceover` 仅用于有可翻译语音且符合条件的视频。音乐轮播没有口播时不设置配音翻译。合并翻译字段，保留已有的其他创意增强设置。要使用 Meta 支持的全部语言，不填自行维护的语言名单，也不写入未公开的语言选择字段。
+- **更新整个现有广告组**：分页读取 `GET /<AD_SET_ID>/ads`，覆盖原有广告和新增广告。记录每条广告及其 creative ID、配置状态、实际状态和翻译字段。Meta 官方 Business SDK 的现有创意更新接口没有公开 `degrees_of_freedom_spec` 写入参数；不能把直接修改原创意当作正式支持的流程，也不能把可能被忽略的 POST 当成功。若要从后台更新，需能完整还原原创意的素材、各比例和版位规则、变体、表单、CTA 等，并核对更换 creative 是否会影响帖子互动或重新审核。只有确认能保留所需行为并获准采取这一路径时，才创建新 creative 并绑定原广告；不复制广告、不传入广告状态变更。如果无法确认兼容性，报告受阻项，用户指定仅后台时不自动切换浏览器。
+- **复核**：重读广告的 creative 和 `degrees_of_freedom_spec.creative_features_spec`，逐条确认适用功能及广告状态。API 返回 `OPT_IN` 只能证明该功能已启用；如果 API 不返回语言范围，就把「所有语言」记为未能通过 API 单独核实，不能把空配置或投放定向的语言列表当作凭证。区分已开启、未支持、未能核实和未应用。
+
+后台排查可运行 `python scripts/audit_adset_translations.py --adset-id <AD_SET_ID>`。脚本只读，使用当前进程的 `FB_ACCESS_TOKEN`，支持 `FB_PROXY`，按广告返回平台实际公开的翻译信息。
